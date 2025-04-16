@@ -4,7 +4,9 @@ from schema.project import ProjectList
 # from service.database import add_project, get_projects, get_project_by_id
 from bson.objectid import ObjectId
 
+
 router = APIRouter()
+
 
 # 임시 데이터
 fake_db = [
@@ -17,6 +19,20 @@ fake_db = [
     },
     {
         "id": 2,
+        "name": "Project 2",
+        "summary": "Summary of project 2",
+        "stack": "Node.js, MongoDB",
+        "description": "Description of project 2"
+    },
+    {
+        "id": 3,
+        "name": "Project 1",
+        "summary": "Summary of project 1",
+        "stack": "Python, FastAPI",
+        "description": "Description of project 1"
+    },
+    {
+        "id": 4,
         "name": "Project 2",
         "summary": "Summary of project 2",
         "stack": "Node.js, MongoDB",
