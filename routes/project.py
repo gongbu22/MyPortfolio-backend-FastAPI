@@ -3,47 +3,37 @@ from models.project import Project
 from schema.project import ProjectList
 # from service.database import add_project, get_projects, get_project_by_id
 from bson.objectid import ObjectId
+from service.database import db
+from dotenv import load_dotenv
+import os
 
+# 환경변수 로드
+load_dotenv()
+
+MONGO_COLLECTION_NAME = os.getenv("MONGO_COLLECTION_NAME")
 
 router = APIRouter()
 
 
-# 임시 데이터
-fake_db = [
-    {
-        "id": 1,
-        "name": "Project 1",
-        "summary": "Summary of project 1",
-        "stack": "Python, FastAPI",
-        "description": "Description of project 1"
-    },
-    {
-        "id": 2,
-        "name": "Project 2",
-        "summary": "Summary of project 2",
-        "stack": "Node.js, MongoDB",
-        "description": "Description of project 2"
-    },
-    {
-        "id": 3,
-        "name": "Project 1",
-        "summary": "Summary of project 1",
-        "stack": "Python, FastAPI",
-        "description": "Description of project 1"
-    },
-    {
-        "id": 4,
-        "name": "Project 2",
-        "summary": "Summary of project 2",
-        "stack": "Node.js, MongoDB",
-        "description": "Description of project 2"
-    },
-]
+def serialize_project(project) -> dict:
+    project["_id"] = str(project["_id"])
+    return project
 
-@router.get("/projects", response_model=list[ProjectList])
-async def get_projects():
+@router.get("/")
+async def root():
+    collections = db[MONGO_COLLECTION_NAME]
+    projects_cursor = collections.find()
 
-    return fake_db
+    projects = []
+    async for project in projects_cursor:
+        projects.append(serialize_project(project))  # ObjectId 처리
+    
+    return {"projects": projects}
+
+# @router.get("/projects", response_model=list[ProjectList])
+# async def get_projects():
+
+#     return fake_db
 
 # # 모든 프로젝트 조회
 # @router.get("/projects/")
