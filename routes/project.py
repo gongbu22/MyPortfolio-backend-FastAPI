@@ -19,7 +19,7 @@ def serialize_project(project) -> dict:
     project["_id"] = str(project["_id"])
     return project
 
-@router.get("/")
+@router.get("/projects")
 async def root():
     collections = db[MONGO_COLLECTION_NAME]
     projects_cursor = collections.find()
@@ -30,21 +30,22 @@ async def root():
     
     return {"projects": projects}
 
-# @router.get("/projects", response_model=list[ProjectList])
-# async def get_projects():
+# 특정 프로젝트 조회
+async def get_detail(project_id: str):
+    collections = db[MONGO_COLLECTION_NAME]
 
-#     return fake_db
+    try:
+        detail = await collections.find_one({"id": int(project_id)})
+        if detail:
+            return serialize_project(detail)
+        return None
+    except Exception as e:
+        print("상세 데이터 에러")
+        return None    
 
-# # 모든 프로젝트 조회
-# @router.get("/projects/")
-# async def fetch_projects():
-#     projects = await get_projects()
-#     return projects
-
-# # 특정 프로젝트 조회
-# @router.get("/projects/{project_id}")
-# async def fetch_project(project_id: str):
-#     project = await get_project_by_id(project_id)
-#     if project is None:
-#         raise HTTPException(status_code=404, detail="Project not found")
-#     return project
+@router.get("/detail/{project_id}")
+async def fetch_project(project_id: str):
+    project = await get_detail(project_id)
+    if project is None:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return project
