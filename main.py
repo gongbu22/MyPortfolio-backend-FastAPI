@@ -13,6 +13,5 @@ app.add_middleware(
     allow_headers=["*"],  # 모든 헤더 허용
 )
 
-# 라우터를 FastAPI 애플리케이션에 등록
 app.include_router(project_router)
 
