@@ -36,7 +36,7 @@ pipeline {
         stage('Docker Image pushing') {
             steps {
                 sh '''
-                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-backend-FastAPI:latest
+                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-backend-fastapi:latest
                 '''
             }
         }
