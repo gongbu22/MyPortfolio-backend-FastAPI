@@ -20,7 +20,7 @@ pipeline {
             steps {
                 dif('MyPortfolio-backend-FastAPI') {
                     sh '''
-                    docker build -t ${DOCKER_IMAGE_OWNER}/myportfolio-backend-fastapi:latest .
+                    docker build -t ${DOCKER_IMAGE_OWNER}/myportfolio-fastapi:latest .
                     '''
                 }
             }
@@ -36,7 +36,7 @@ pipeline {
         stage('Docker Image pushing') {
             steps {
                 sh '''
-                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-backend-fastapi:latest
+                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-fastapi:latest
                 '''
             }
         }
