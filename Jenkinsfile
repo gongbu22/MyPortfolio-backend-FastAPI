@@ -18,7 +18,7 @@ pipeline {
 
         stage('Docker Image Building') {
             steps {
-                dif('MyPortfolio-backend-FastAPI') {
+                dir('MyPortfolio-backend-FastAPI') {
                     sh '''
                     docker build -t ${DOCKER_IMAGE_OWNER}/myportfolio-fastapi:latest .
                     '''
