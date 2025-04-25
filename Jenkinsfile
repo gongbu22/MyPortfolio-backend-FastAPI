@@ -36,8 +36,17 @@ pipeline {
         stage('Docker Image pushing') {
             steps {
                 sh '''
-                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-fastapi:latest
+                docker push ${DOCKER_IMAGE_OWNER}/myportfolio-fastapi:latest || true
                 '''
+            }
+        }
+
+        stage('Wait for Push Completion') {
+            steps {
+                script {
+                    echo 'Waiting for Docker push to complete...'
+                    sleep(30)
+                }
             }
         }
 
