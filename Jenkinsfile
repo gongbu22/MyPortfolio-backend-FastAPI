@@ -9,8 +9,8 @@ pipeline {
         MONGO_PASS = credentials('mongo-pass')
         MONGO_HOST = credentials('mongo-host')
         MONGO_PORT = credentials('mongo-port')
-        MONGO_DB_NAME = credentials('mongo-db-chatbot')
-        MONGO_COLLECTION_NAME = credentials('mongo-collection-name')
+        MONGO_DB_NAME = credentials('mongo-db-name')
+        MONGO_COLLECTION_NAME = credentials('mongo-collection-fastapi')
         REACT_APP_HOST = credentials('react-app-host')
         REACT_APP_PORT = credentials('react-app-port')
     }
