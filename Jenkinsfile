@@ -3,7 +3,16 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_OWNER = 'dangdang42'
+        DOCKER_BUILD_TAG = "v${env.BUILD_NUMBER}"
         DOCKER_PWD = credentials('dockerhub')
+        MONGO_USER = credentials('mongo-user')
+        MONGO_PASS = credentials('mongo-pass')
+        MONGO_HOST = credentials('mongo-host')
+        MONGO_PORT = credentials('mongo-port')
+        MONGO_DB_NAME = credentials('mongo-db-chatbot')
+        MONGO_COLLECTION_NAME = credentials('mongo-collection-name')
+        REACT_APP_HOST = credentials('react-app-host')
+        REACT_APP_PORT = credentials('react-app-port')
     }
 
     stages {
@@ -12,6 +21,24 @@ pipeline {
                 sh '''
                 rm -rf MyPortfolio-backend-FastAPI
                 git clone https://github.com/gongbu22/MyPortfolio-backend-FastAPI.git
+                '''
+            }
+        }
+
+        stage('Create .env file') {
+            steps {
+                sh '''
+                cat <<EOF > .env
+                MONGODB_URL=$MONGODB_URL
+                MONGO_USER=$MONGO_USER
+                MONGO_PASS=$MONGO_PASS
+                MONGO_HOST=$MONGO_HOST
+                MONGO_PORT=$MONGO_PORT
+                MONGO_DB_NAME=$MONGO_DB_NAME
+                MONGO_COLLECTION_NAME=$MONGO_COLLECTION_NAME
+                REACT_APP_HOST=$REACT_APP_HOST
+                REACT_APP_PORT=$REACT_APP_PORT
+                EOF
                 '''
             }
         }
