@@ -28,7 +28,7 @@ pipeline {
         stage('Create .env file') {
             steps {
                 sh '''
-                cat <<EOF > .env
+                cat <<EOF > MyPortfolio-backend-FastAPI/.env
                 MONGODB_URL=$MONGODB_URL
                 MONGO_USER=$MONGO_USER
                 MONGO_PASS=$MONGO_PASS
