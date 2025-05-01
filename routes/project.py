@@ -3,7 +3,7 @@ from models.project import Project
 from schema.project import ProjectList
 # from service.database import add_project, get_projects, get_project_by_id
 from bson.objectid import ObjectId
-from service.database import db
+from service.database import db, get_mongo_client
 from dotenv import load_dotenv
 import os
 
@@ -18,6 +18,16 @@ router = APIRouter()
 def serialize_project(project) -> dict:
     project["_id"] = str(project["_id"])
     return project
+
+@router.get("/test_mongo")
+async def test_mongo_connection():
+    # MongoDB 연결 확인
+    client = await get_mongo_client()
+    
+    # 연결된 MongoDB에서 DB 목록을 가져와서 확인
+    databases = await client.list_database_names()
+    
+    return {"message": "MongoDB 연결 성공", "databases": databases}
 
 @router.get("/projects")
 async def root():
