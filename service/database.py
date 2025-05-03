@@ -1,7 +1,9 @@
 from motor.motor_asyncio import AsyncIOMotorClient
+from beanie import init_beanie
 from fastapi import HTTPException
 from dotenv import load_dotenv
 import os
+from models.projects import myportfolio
 
 load_dotenv()
 
@@ -13,17 +15,18 @@ MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
 
 MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin"
 
-async def get_mongo_client():
+db_client = None  # 전역 DB 클라이언트
+
+async def init_db():
+    global db_client
     try:
-        # MongoDB URI에 인증 정보 추가
-        client = AsyncIOMotorClient(MONGO_URI)
-        
-        # 인증을 거친 후 ping 명령 실행
-        await client.admin.command('ping')  # MongoDB가 연결되었는지 확인하는 ping 명령
-        return client
+        print("👉 MongoDB 연결 시도 중...")
+        db_client = AsyncIOMotorClient(MONGO_URI)
+        database = db_client[MONGO_DB_NAME]
+        print("Database: ", database)
+        await init_beanie(database=database, document_models=[myportfolio])
+        print("✅ MongoDB 연결 및 Beanie 초기화 완료!")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"MongoDB 연결 실패: {str(e)}")
+        print(f"❌ MongoDB 연결 실패: {e}")  # 여기에 진짜 에러 원인이 출력됨
+        raise
 
-
-client = AsyncIOMotorClient(MONGO_URI)
-db = client[MONGO_DB_NAME]
