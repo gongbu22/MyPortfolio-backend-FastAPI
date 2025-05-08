@@ -24,6 +24,7 @@ async def init_db():
     global db_client
     try:
         print("👉 MongoDB 연결 시도 중...")
+        print("MONGO_DB_NAME: ",MONGO_DB_NAME)
         db_client = AsyncIOMotorClient(MONGO_URI)
         database = db_client[MONGO_DB_NAME]
         print("Database: ", database)
