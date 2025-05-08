@@ -7,6 +7,8 @@ from models.projects import myportfolio
 
 # load_dotenv()
 
+print("mongo_user: ", os.getenv("MONGO_USER"))
+
 MONGO_USER = os.getenv("MONGO_USER")
 MONGO_PASS = os.getenv("MONGO_PASS")
 MONGO_HOST = os.getenv("MONGO_HOST")
