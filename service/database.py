@@ -1,11 +1,11 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from fastapi import HTTPException
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 from models.projects import myportfolio
 
-load_dotenv()
+# load_dotenv()
 
 MONGO_USER = os.getenv("MONGO_USER")
 MONGO_PASS = os.getenv("MONGO_PASS")
@@ -13,7 +13,7 @@ MONGO_HOST = os.getenv("MONGO_HOST")
 MONGO_PORT = os.getenv("MONGO_PORT")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
 
-MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin"
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/{MONGO_DB_NAME}?authSource=admin"
 # MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
 
 db_client = None  # 전역 DB 클라이언트
