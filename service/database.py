@@ -23,7 +23,7 @@ async def init_db():
         print("👉 MongoDB 연결 시도 중...")
         db_client = AsyncIOMotorClient(MONGO_URI)
         database = db_client[MONGO_DB_NAME]
-        # print("Database: ", database)
+        print("Database: ", database)
         await init_beanie(database=database, document_models=[myportfolio])
         print("✅ MongoDB 연결 및 Beanie 초기화 완료!")
     except Exception as e:
