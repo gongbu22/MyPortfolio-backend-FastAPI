@@ -13,8 +13,8 @@ MONGO_HOST = os.getenv("MONGO_HOST")
 MONGO_PORT = os.getenv("MONGO_PORT")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
 
-# MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin"
-MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin"
+# MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
 
 db_client = None  # 전역 DB 클라이언트
 
