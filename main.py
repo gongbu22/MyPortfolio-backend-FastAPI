@@ -22,8 +22,8 @@ print('react_host: ', react_host)
 print('react_port: ', react_port)
 
 origins = [
-    f"${react_host}:${react_port}",
-    f"${react_host}",
+    f"{react_host}:{react_port}",
+    react_host,
     "http://localhost:5173",
     "http://127.0.0.1:5173"  # React 프론트엔드 허용
 ]
